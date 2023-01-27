@@ -19,7 +19,26 @@ services:
     ports:
       - 54320:5432
 
+  mongodb:
+      image: mongo
+      container_name: "DB_mongo"
+      environment:
+        - ./metabase/config/mongo_exemple.env    
+      volumes:
+        - ./data/mongo_db:/data/db
+      ports:
+        - 27017:27017
+      networks:
+        - networking
 
+  metabase:
+    container_name: "data-engine_metabase"
+    restart: "always"
+    image: metabase/metabase
+    env_file:
+      - ./metabase/config/metabase_database_exemple.env
+    ports:
+      - 3000:3000
 
 # Volumes to persist data
 volumes:

@@ -1,0 +1,71 @@
+name: CI
+
+on: [push]
+
+env:
+  POETRY_VIRTUALENVS_CREATE: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        make install
+        poetry install
+    
+    - name: Lint
+      run: |
+        poetry run flake8
+        poetry run autopep8 --in-place --recursive .
+
+    - name: Format
+      run: |
+        poetry run black .
+
+    - name: Document
+      run: |
+        make docs
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install dependencies
+      run: |
+        make install
+        poetry install
+
+    - name: Build and Test
+      run: |
+        poetry run pytest
+
+    - name: Lint
+      run: |
+        poetry run flake8
+        poetry run autopep8 --in-place --recursive .
+
+    - name: Format
+      run: |
+        poetry run black .
+
+    - name: Document
+      run: |
+        make docs        

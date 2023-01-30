@@ -1,5 +1,5 @@
-from parser.parser_base import ParserBase
-from parser.const import model_type
+from interbase_code.parser.parser_base import ParserBase
+from interbase_code.parser.const import model_type
 
 
 class ModelParser(ParserBase):

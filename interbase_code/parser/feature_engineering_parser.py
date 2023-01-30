@@ -1,4 +1,4 @@
-from parser.parser_base import ParserBase
+from interbase_code.parser.parser_base import ParserBase
 
 
 class FeatureEngineeringParser(ParserBase):

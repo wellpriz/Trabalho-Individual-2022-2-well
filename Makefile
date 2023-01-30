@@ -27,5 +27,9 @@ format:
 test:
 	poetry run pytest
 
+publish:
+	poetry build
+	poetry publish
+
 all: install lint docs format
 .PHONY: install docs lint format all
